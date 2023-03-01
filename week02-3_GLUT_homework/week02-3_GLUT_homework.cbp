@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="week02-1_GLUT_first" />
+		<Option title="week02-3_GLUT_homework" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/week02-1_GLUT_first" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/week02-3_GLUT_homework" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="C:/Users/user/Desktop/freeglut/bin" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
@@ -17,7 +17,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/week02-1_GLUT_first" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/week02-3_GLUT_homework" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="C:/Users/user/Desktop/freeglut/bin" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
