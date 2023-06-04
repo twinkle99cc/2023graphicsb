@@ -4,9 +4,14 @@
 #include <GL/glut.h>
 #include "glm.h"
 GLMmodel * head = NULL;
-GLMmodel * body = NULL; ///GLMmodel * gundam = NULL;
+GLMmodel * body = NULL;
+GLMmodel * feetr = NULL,* feetl = NULL; ///GLMmodel * gundam = NULL;
 GLMmodel * armr = NULL, * arml = NULL;
 GLMmodel * handr = NULL,* handl = NULL;
+GLMmodel * bot = NULL;
+GLMmodel * legr = NULL,* legl = NULL;
+GLMmodel * calfr = NULL,* calfl = NULL;
+GLMmodel * cloak = NULL;
 float teapotX = 0, teapotY = 0, angle = 0, angle2 = 0, oldX = 0, oldY = 0;
 int myTexture(char * filename)
 {
@@ -42,25 +47,108 @@ void display() {
     glPushMatrix();
         glScalef(1.6, 1.6, 1.6);
         glTranslatef(0, -0.3, 0);///往下一半
-        glPushMatrix();
+        glPushMatrix();///身體
             glColor3f(1,1,1);
             glScalef(0.4, 0.4, 0.4);
             ///glRotatef(angle, 0, 1, 0);
-            glmDraw(body, GLM_MATERIAL|GLM_TEXTURE);///glmDraw(gundam, GLM_MATERIAL|GLM_TEXTURE);
-            glPushMatrix();
+            glmDraw(body, GLM_MATERIAL|GLM_TEXTURE);
+
+            glPushMatrix();///右手臂
                 ///glTranslatef(teapotX,teapotY,0);
                 glTranslatef( 0.17, 1.61, 0 );
-                glRotatef(angle, 0, 1, 0);
-                glRotatef(angle2, 1, 0, 0);
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
                 glTranslatef( -0.17, -1.61, 0 );
                 glmDraw(armr,GLM_MATERIAL|GLM_TEXTURE);
             glPopMatrix();
-            glPushMatrix();
+            glPushMatrix();///右手
+                glTranslatef( 0.45, 1.33, 0 );
+                ///glRotated(angle,0,1,0);
+                ///glRotated(angle2,1,0,0);
+                glTranslatef( -0.45, -1.33, 0 );
+                glmDraw(handr,GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+
+            glPushMatrix();///左手臂
+                glTranslatef( -0.20, 1.60, 0 );
+                ///glRotatef(angle,0,1,0);
+                ///glRotatef(angle2,1,0,0);
+                glTranslatef( 0.20, -1.60, 0 );
+                glmDraw(arml,GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+            glPushMatrix();///左手
+                glTranslatef( -0.47, 1.37, 0 );
+                ///glRotated(angle,0,1,0);
+                ///glRotated(angle2,1,0,0);
+                glTranslatef( 0.47, -1.37, 0 );
+                glmDraw(handl,GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+
+            glPushMatrix();///頭
                 glTranslatef( 0.00, 1.68, 0 );
-                //glRotatef(angle, 0, 1, 0);
-                //glRotatef(angle2, 1, 0, 0);
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
                 glTranslatef( 0.00, -1.68, 0 );
                 glmDraw(head, GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+
+            glPushMatrix();///披風
+                glTranslatef( 0.00, 1.56, 0 );
+                glRotatef(angle, 0, 1, 0);
+                glRotatef(angle2, 1, 0, 0);
+                glTranslatef( 0.00, -1.56, 0 );
+                glmDraw(cloak, GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+
+            glPushMatrix();///屁股
+                glTranslatef( -0.01, 1.20, 0 );
+                ///glRotatef(angle, 0, 1, 0);
+                glTranslatef( 0.01, -1.20, 0 );
+                glmDraw(bot,GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+
+            glPushMatrix();///右大腿
+                glTranslatef( 0.04, 1.13, 0 );
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
+                glTranslatef( -0.04, -1.13, 0 );
+                glmDraw(legr, GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+            glPushMatrix();///右小腿
+                glTranslatef( 0.16, 0.40, 0 );
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
+                glTranslatef( -0.16, -0.40, 0 );
+                glmDraw(calfr, GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+            glPushMatrix();///右腳掌
+                glTranslatef( 0.17, 0.07, 0 );
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
+                glTranslatef( -0.17, -0.07, 0 );
+                glmDraw(feetr, GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+
+            glPushMatrix();///左大腿
+                glTranslatef( -0.08, 1.15, 0 );
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
+                glTranslatef( 0.08, -1.15, 0 );
+                glmDraw(legl, GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+            glPushMatrix();///左小腿
+                glTranslatef( -0.17, 0.40, 0 );
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
+                glTranslatef( 0.17, -0.40, 0 );
+                glmDraw(calfl, GLM_MATERIAL|GLM_TEXTURE);
+            glPopMatrix();
+            glPushMatrix();///左腳掌
+                 glTranslatef( -0.17, 0.09, 0 );
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
+                glTranslatef( 0.17, -0.09, 0 );
+                glmDraw(feetl, GLM_MATERIAL|GLM_TEXTURE);
             glPopMatrix();
         glPopMatrix();
 
@@ -84,12 +172,20 @@ int main(int argc, char** argv)
 
     head = glmReadOBJ("model/head.obj");
     body = glmReadOBJ("model/body.obj"); ///gundam = glmReadOBJ("model/Gundam.obj");
+    cloak = glmReadOBJ("model/cloak.obj");
     armr = glmReadOBJ("model/armr.obj");
     arml = glmReadOBJ("model/arml.obj");
     handr = glmReadOBJ("model/handr.obj");
     handl = glmReadOBJ("model/handl.obj");
+    bot = glmReadOBJ("model/bot.obj");
+    legl = glmReadOBJ("model/legl.obj");
+    legr = glmReadOBJ("model/legr.obj");
+    calfl = glmReadOBJ("model/calfl.obj");
+    calfr = glmReadOBJ("model/calfr.obj");
+    feetl = glmReadOBJ("model/feetl.obj");
+    feetr = glmReadOBJ("model/feetr.obj");
 
-    myTexture("model/Diffuse.jpg");
+    ///myTexture("model/Diffuse.jpg");
     glEnable(GL_DEPTH_TEST);
 
     glutMainLoop();

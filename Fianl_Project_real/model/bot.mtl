@@ -1,13 +1,4 @@
-newmtl body:Model001_Material005
-illum 4
-Kd 0.00 0.00 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-map_Kd DLC3_Batman1970_head_D.tga
-Ni 1.00
-Ks 0.50 0.50 0.50
-Ns 0.06
-newmtl body:Model001_Material007
+newmtl bot:Model001_Material007
 illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
@@ -16,7 +7,7 @@ map_Kd DLC3_Batman1970_leg_D.tga
 Ni 1.00
 Ks 0.50 0.50 0.50
 Ns 0.06
-newmtl body:Model001_Material009
+newmtl bot:Model001_Material009
 illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
