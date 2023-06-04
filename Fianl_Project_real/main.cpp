@@ -12,7 +12,26 @@ GLMmodel * bot = NULL;
 GLMmodel * legr = NULL,* legl = NULL;
 GLMmodel * calfr = NULL,* calfl = NULL;
 GLMmodel * cloak = NULL;
-float teapotX = 0, teapotY = 0, angle = 0, angle2 = 0, oldX = 0, oldY = 0;
+float teapotX = 0, teapotY = 0, oldX = 0, oldY = 0;
+float angle[20] = {} , angle2[20] = {} ;
+int ID = 0;
+void keyboard(unsigned char key,int x,int y)
+{
+    if(key=='0') ID = 0;
+    if(key=='1') ID = 1;
+    if(key=='2') ID = 2;
+    if(key=='3') ID = 3;
+    if(key=='4') ID = 4;
+    if(key=='5') ID = 5;
+    if(key=='6') ID = 6;
+    if(key=='7') ID = 7;
+    if(key=='8') ID = 8;
+    if(key=='9') ID = 9;
+    if(key=='u') ID = 10;
+    if(key=='i') ID = 11;
+    if(key=='o') ID = 12;
+    if(key=='j') ID = 13;
+}
 int myTexture(char * filename)
 {
     IplImage * img = cvLoadImage(filename); ///OpenCVÅª¹Ï
@@ -35,8 +54,8 @@ void mouse(int button, int state, int x, int y) {
 void motion(int x, int y) {
     teapotX += (x - oldX) / 150.0 * 2; ///teapotX = (x-150)/150.0;
     teapotY += (oldY - y) / 150.0 * 2; ///teapotY = (150-y)/150.0;
-    angle += x - oldX;
-    angle2 += y - oldY;
+    angle[ID] += x - oldX;
+    angle2[ID] += y - oldY;
     oldX = x;
     oldY = y;
     glutPostRedisplay();
@@ -50,105 +69,104 @@ void display() {
         glPushMatrix();///¨­Åé
             glColor3f(1,1,1);
             glScalef(0.4, 0.4, 0.4);
-            ///glRotatef(angle, 0, 1, 0);
+            glRotatef(angle[0], 0, 1, 0);
             glmDraw(body, GLM_MATERIAL|GLM_TEXTURE);
 
             glPushMatrix();///¥k¤âÁu
                 ///glTranslatef(teapotX,teapotY,0);
                 glTranslatef( 0.17, 1.61, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
+                glRotatef(angle[1], 0, 1, 0);
+                glRotatef(angle2[1], 1, 0, 0);
                 glTranslatef( -0.17, -1.61, 0 );
                 glmDraw(armr,GLM_MATERIAL|GLM_TEXTURE);
-            glPopMatrix();
-            glPushMatrix();///¥k¤â
-                glTranslatef( 0.45, 1.33, 0 );
-                ///glRotated(angle,0,1,0);
-                ///glRotated(angle2,1,0,0);
-                glTranslatef( -0.45, -1.33, 0 );
-                glmDraw(handr,GLM_MATERIAL|GLM_TEXTURE);
+                glPushMatrix();///¥k¤â
+                    glTranslatef( 0.45, 1.33, 0 );
+                    glRotated(angle[2],0,1,0);
+                    glRotated(angle2[2],1,0,0);
+                    glTranslatef( -0.45, -1.33, 0 );
+                    glmDraw(handr,GLM_MATERIAL|GLM_TEXTURE);
+                glPopMatrix();
             glPopMatrix();
 
             glPushMatrix();///¥ª¤âÁu
                 glTranslatef( -0.20, 1.60, 0 );
-                ///glRotatef(angle,0,1,0);
-                ///glRotatef(angle2,1,0,0);
+                glRotatef(angle[3],0,1,0);
+                glRotatef(angle2[3],1,0,0);
                 glTranslatef( 0.20, -1.60, 0 );
                 glmDraw(arml,GLM_MATERIAL|GLM_TEXTURE);
-            glPopMatrix();
-            glPushMatrix();///¥ª¤â
-                glTranslatef( -0.47, 1.37, 0 );
-                ///glRotated(angle,0,1,0);
-                ///glRotated(angle2,1,0,0);
-                glTranslatef( 0.47, -1.37, 0 );
-                glmDraw(handl,GLM_MATERIAL|GLM_TEXTURE);
+                glPushMatrix();///¥ª¤â
+                    glTranslatef( -0.47, 1.37, 0 );
+                    glRotated(angle[4],0,1,0);
+                    glRotated(angle2[4],1,0,0);
+                    glTranslatef( 0.47, -1.37, 0 );
+                    glmDraw(handl,GLM_MATERIAL|GLM_TEXTURE);
+                glPopMatrix();
             glPopMatrix();
 
             glPushMatrix();///ÀY
                 glTranslatef( 0.00, 1.68, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
+                glRotatef(angle[5], 0, 1, 0);
+                glRotatef(angle2[5], 1, 0, 0);
                 glTranslatef( 0.00, -1.68, 0 );
                 glmDraw(head, GLM_MATERIAL|GLM_TEXTURE);
             glPopMatrix();
 
             glPushMatrix();///©Ü­·
                 glTranslatef( 0.00, 1.56, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
+                glRotatef(angle[6], 0, 1, 0);
+                glRotatef(angle2[6], 1, 0, 0);
                 glTranslatef( 0.00, -1.56, 0 );
                 glmDraw(cloak, GLM_MATERIAL|GLM_TEXTURE);
             glPopMatrix();
 
             glPushMatrix();///§¾ªÑ
                 glTranslatef( -0.01, 1.20, 0 );
-                ///glRotatef(angle, 0, 1, 0);
+                glRotatef(angle[7], 0, 1, 0);
                 glTranslatef( 0.01, -1.20, 0 );
                 glmDraw(bot,GLM_MATERIAL|GLM_TEXTURE);
             glPopMatrix();
 
             glPushMatrix();///¥k¤j»L
                 glTranslatef( 0.04, 1.13, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
+                glRotatef(angle[8], 0, 1, 0);
+                glRotatef(angle2[8], 1, 0, 0);
                 glTranslatef( -0.04, -1.13, 0 );
                 glmDraw(legr, GLM_MATERIAL|GLM_TEXTURE);
+                glPushMatrix();///¥k¤p»L
+                    glTranslatef( 0.16, 0.40, 0 );
+                    glRotatef(angle[9], 0, 1, 0);
+                    glRotatef(angle2[9], 1, 0, 0);
+                    glTranslatef( -0.16, -0.40, 0 );
+                    glmDraw(calfr, GLM_MATERIAL|GLM_TEXTURE);
+                    glPushMatrix();///¥k¸}´x
+                        glTranslatef( 0.17, 0.07, 0 );
+                        glRotatef(angle[10], 0, 1, 0);
+                        glRotatef(angle2[10], 1, 0, 0);
+                        glTranslatef( -0.17, -0.07, 0 );
+                        glmDraw(feetr, GLM_MATERIAL|GLM_TEXTURE);
+                    glPopMatrix();
+                glPopMatrix();
             glPopMatrix();
-            glPushMatrix();///¥k¤p»L
-                glTranslatef( 0.16, 0.40, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
-                glTranslatef( -0.16, -0.40, 0 );
-                glmDraw(calfr, GLM_MATERIAL|GLM_TEXTURE);
-            glPopMatrix();
-            glPushMatrix();///¥k¸}´x
-                glTranslatef( 0.17, 0.07, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
-                glTranslatef( -0.17, -0.07, 0 );
-                glmDraw(feetr, GLM_MATERIAL|GLM_TEXTURE);
-            glPopMatrix();
-
             glPushMatrix();///¥ª¤j»L
                 glTranslatef( -0.08, 1.15, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
+                glRotatef(angle[11], 0, 1, 0);
+                glRotatef(angle2[11], 1, 0, 0);
                 glTranslatef( 0.08, -1.15, 0 );
                 glmDraw(legl, GLM_MATERIAL|GLM_TEXTURE);
-            glPopMatrix();
-            glPushMatrix();///¥ª¤p»L
-                glTranslatef( -0.17, 0.40, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
-                glTranslatef( 0.17, -0.40, 0 );
-                glmDraw(calfl, GLM_MATERIAL|GLM_TEXTURE);
-            glPopMatrix();
-            glPushMatrix();///¥ª¸}´x
-                 glTranslatef( -0.17, 0.09, 0 );
-                ///glRotatef(angle, 0, 1, 0);
-                ///glRotatef(angle2, 1, 0, 0);
-                glTranslatef( 0.17, -0.09, 0 );
-                glmDraw(feetl, GLM_MATERIAL|GLM_TEXTURE);
+                glPushMatrix();///¥ª¤p»L
+                    glTranslatef( -0.17, 0.40, 0 );
+                    glRotatef(angle[12], 0, 1, 0);
+                    glRotatef(angle2[12], 1, 0, 0);
+                    glTranslatef( 0.17, -0.40, 0 );
+                    glmDraw(calfl, GLM_MATERIAL|GLM_TEXTURE);
+                    glPushMatrix();///¥ª¸}´x
+                         glTranslatef( -0.17, 0.09, 0 );
+                        glRotatef(angle[13], 0, 1, 0);
+                        glRotatef(angle2[13], 1, 0, 0);
+                        glTranslatef( 0.17, -0.09, 0 );
+                        glmDraw(feetl, GLM_MATERIAL|GLM_TEXTURE);
+                    glPopMatrix();
+                glPopMatrix();
             glPopMatrix();
         glPopMatrix();
 
@@ -169,6 +187,7 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);
     glutMotionFunc(motion);
     glutMouseFunc(mouse);
+    glutKeyboardFunc(keyboard);
 
     head = glmReadOBJ("model/head.obj");
     body = glmReadOBJ("model/body.obj"); ///gundam = glmReadOBJ("model/Gundam.obj");
