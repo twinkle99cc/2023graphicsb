@@ -94,8 +94,8 @@ void display() {
 
             glPushMatrix();///©Ü­·
                 glTranslatef( 0.00, 1.56, 0 );
-                glRotatef(angle, 0, 1, 0);
-                glRotatef(angle2, 1, 0, 0);
+                ///glRotatef(angle, 0, 1, 0);
+                ///glRotatef(angle2, 1, 0, 0);
                 glTranslatef( 0.00, -1.56, 0 );
                 glmDraw(cloak, GLM_MATERIAL|GLM_TEXTURE);
             glPopMatrix();
