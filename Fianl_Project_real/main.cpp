@@ -14,9 +14,34 @@ GLMmodel * calfr = NULL,* calfl = NULL;
 GLMmodel * cloak = NULL;
 float teapotX = 0, teapotY = 0, oldX = 0, oldY = 0;
 float angle[20] = {} , angle2[20] = {} ;
+float NewAngle[20] = {}, OldAngle[20] = {};
+float NewAngle2[20] = {}, OldAngle2[20] = {};
 int ID = 0;
 FILE * fout = NULL;
 FILE * fin = NULL;
+void timer(int t)
+{
+    printf("現在timer(%d)\n",t);
+    glutTimerFunc(20,timer,t+1);///馬上設定下一個鬧鐘
+
+    float alpha = (t%50)/50.0; ///0.0~1.0
+    if(t%50==0){
+        if(fin==NULL) fin = fopen("motion.txt","r");
+        for(int i=0;i<20;i++){
+            OldAngle[i] = NewAngle[i];
+            OldAngle2[i] = OldAngle2[i];
+            fscanf(fin, "%f", &NewAngle[i]);
+            fscanf(fin, "%f", &NewAngle2[i]);
+        }
+    }
+    for(int i=0;i<20;i++){
+        angle[i] = NewAngle[i] * alpha + OldAngle[i] * (1-alpha);
+        angle2[i] = NewAngle2[i] * alpha + OldAngle2[i] * (1-alpha);
+
+    }
+
+    glutPostRedisplay();
+}
 void keyboard(unsigned char key,int x,int y)
 {
     if(key=='0') ID = 0;
@@ -49,6 +74,10 @@ void keyboard(unsigned char key,int x,int y)
             fscanf(fin, "%f", &angle2[i]);
         }
         glutPostRedisplay();
+    }
+    if(key=='p'){///play播放 也會動到檔案
+        glutTimerFunc(0,timer,0);
+
     }
 }
 int myTexture(char * filename)
@@ -89,6 +118,7 @@ void display() {
             glColor3f(1,1,1);
             glScalef(0.4, 0.4, 0.4);
             glRotatef(angle[0], 0, 1, 0);
+
             glmDraw(body, GLM_MATERIAL|GLM_TEXTURE);
 
             glPushMatrix();///右手臂
@@ -143,51 +173,50 @@ void display() {
                 glRotatef(angle[7], 0, 1, 0);
                 glTranslatef( 0.01, -1.20, 0 );
                 glmDraw(bot,GLM_MATERIAL|GLM_TEXTURE);
-            glPopMatrix();
-
-            glPushMatrix();///右大腿
-                glTranslatef( 0.04, 1.13, 0 );
-                glRotatef(angle[8], 0, 1, 0);
-                glRotatef(angle2[8], 1, 0, 0);
-                glTranslatef( -0.04, -1.13, 0 );
-                glmDraw(legr, GLM_MATERIAL|GLM_TEXTURE);
-                glPushMatrix();///右小腿
-                    glTranslatef( 0.16, 0.40, 0 );
-                    glRotatef(angle[9], 0, 1, 0);
-                    glRotatef(angle2[9], 1, 0, 0);
-                    glTranslatef( -0.16, -0.40, 0 );
-                    glmDraw(calfr, GLM_MATERIAL|GLM_TEXTURE);
-                    glPushMatrix();///右腳掌
-                        glTranslatef( 0.17, 0.07, 0 );
-                        glRotatef(angle[10], 0, 1, 0);
-                        glRotatef(angle2[10], 1, 0, 0);
-                        glTranslatef( -0.17, -0.07, 0 );
-                        glmDraw(feetr, GLM_MATERIAL|GLM_TEXTURE);
+                glPushMatrix();///右大腿
+                    glTranslatef( 0.04, 1.13, 0 );
+                    glRotatef(angle[8], 0, 1, 0);
+                    glRotatef(angle2[8], 1, 0, 0);
+                    glTranslatef( -0.04, -1.13, 0 );
+                    glmDraw(legr, GLM_MATERIAL|GLM_TEXTURE);
+                    glPushMatrix();///右小腿
+                        glTranslatef( 0.16, 0.40, 0 );
+                        glRotatef(angle[9], 0, 1, 0);
+                        glRotatef(angle2[9], 1, 0, 0);
+                        glTranslatef( -0.16, -0.40, 0 );
+                        glmDraw(calfr, GLM_MATERIAL|GLM_TEXTURE);
+                        glPushMatrix();///右腳掌
+                            glTranslatef( 0.17, 0.07, 0 );
+                            glRotatef(angle[10], 0, 1, 0);
+                            glRotatef(angle2[10], 1, 0, 0);
+                            glTranslatef( -0.17, -0.07, 0 );
+                            glmDraw(feetr, GLM_MATERIAL|GLM_TEXTURE);
+                        glPopMatrix();
                     glPopMatrix();
                 glPopMatrix();
-            glPopMatrix();
-            glPushMatrix();///左大腿
-                glTranslatef( -0.08, 1.15, 0 );
-                glRotatef(angle[11], 0, 1, 0);
-                glRotatef(angle2[11], 1, 0, 0);
-                glTranslatef( 0.08, -1.15, 0 );
-                glmDraw(legl, GLM_MATERIAL|GLM_TEXTURE);
-                glPushMatrix();///左小腿
-                    glTranslatef( -0.17, 0.40, 0 );
-                    glRotatef(angle[12], 0, 1, 0);
-                    glRotatef(angle2[12], 1, 0, 0);
-                    glTranslatef( 0.17, -0.40, 0 );
-                    glmDraw(calfl, GLM_MATERIAL|GLM_TEXTURE);
-                    glPushMatrix();///左腳掌
-                         glTranslatef( -0.17, 0.09, 0 );
-                        glRotatef(angle[13], 0, 1, 0);
-                        glRotatef(angle2[13], 1, 0, 0);
-                        glTranslatef( 0.17, -0.09, 0 );
-                        glmDraw(feetl, GLM_MATERIAL|GLM_TEXTURE);
+                glPushMatrix();///左大腿
+                    glTranslatef( -0.08, 1.15, 0 );
+                    glRotatef(angle[11], 0, 1, 0);
+                    glRotatef(angle2[11], 1, 0, 0);
+                    glTranslatef( 0.08, -1.15, 0 );
+                    glmDraw(legl, GLM_MATERIAL|GLM_TEXTURE);
+                        glPushMatrix();///左小腿
+                            glTranslatef( -0.17, 0.40, 0 );
+                            glRotatef(angle[12], 0, 1, 0);
+                            glRotatef(angle2[12], 1, 0, 0);
+                            glTranslatef( 0.17, -0.40, 0 );
+                            glmDraw(calfl, GLM_MATERIAL|GLM_TEXTURE);
+                                glPushMatrix();///左腳掌
+                                     glTranslatef( -0.17, 0.09, 0 );
+                                    glRotatef(angle[13], 0, 1, 0);
+                                    glRotatef(angle2[13], 1, 0, 0);
+                                    glTranslatef( 0.17, -0.09, 0 );
+                                    glmDraw(feetl, GLM_MATERIAL|GLM_TEXTURE);
+                                glPopMatrix();
+                        glPopMatrix();
                     glPopMatrix();
                 glPopMatrix();
-            glPopMatrix();
-        glPopMatrix();
+             glPopMatrix();
 
         glColor3f(0,1,0);
         glutSolidTeapot( 0.02 );
