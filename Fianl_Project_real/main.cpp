@@ -15,6 +15,7 @@ GLMmodel * cloak = NULL;
 float teapotX = 0, teapotY = 0, oldX = 0, oldY = 0;
 float angle[20] = {} , angle2[20] = {} ;
 int ID = 0;
+FILE * fout = NULL;
 void keyboard(unsigned char key,int x,int y)
 {
     if(key=='0') ID = 0;
@@ -31,6 +32,15 @@ void keyboard(unsigned char key,int x,int y)
     if(key=='i') ID = 11;
     if(key=='o') ID = 12;
     if(key=='j') ID = 13;
+    if(key=='s'){ ///save存檔
+        if(fout == NULL) fout = fopen("motion.txt","w");
+        for(int i=0;i<20;i++){
+            fprintf(fout,"%.2f ",angle[i]);
+            fprintf(fout,"%.2f",angle2[i]);
+        }
+        fprintf(fout,"\n");
+        printf("寫了一行\n");
+    }
 }
 int myTexture(char * filename)
 {
@@ -204,7 +214,7 @@ int main(int argc, char** argv)
     feetl = glmReadOBJ("model/feetl.obj");
     feetr = glmReadOBJ("model/feetr.obj");
 
-    ///myTexture("model/Diffuse.jpg");
+    myTexture("model/Diffuse.jpg");
     glEnable(GL_DEPTH_TEST);
 
     glutMainLoop();
