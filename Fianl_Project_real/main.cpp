@@ -29,7 +29,7 @@ void timer(int t)
         if(fin==NULL) fin = fopen("motion.txt","r");
         for(int i=0;i<20;i++){
             OldAngle[i] = NewAngle[i];
-            OldAngle2[i] = OldAngle2[i];
+            OldAngle2[i] = NewAngle2[i];
             fscanf(fin, "%f", &NewAngle[i]);
             fscanf(fin, "%f", &NewAngle2[i]);
         }
@@ -107,7 +107,7 @@ void motion(int x, int y) {
     oldX = x;
     oldY = y;
     glutPostRedisplay();
-    printf("  glTranslatef( %.2f, %.2f, 0 ); \n", teapotX, teapotY );
+    printf("glTranslatef( %.2f, %.2f, 0 );\n", teapotX, teapotY );
 }
 void display() {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
